@@ -42,11 +42,11 @@ const page: FC<PageProps> = async ({}) => {
 
   return (
     <div className="container py-12 bg-gradient-to-b from-gray-900 to-black h-full rounded-2xl">
-      <h1 className="font-semibold text-5xl mb-[5rem] text-gray-200 ">Recent Chats</h1>
+      <h1 className="font-semibold text-5xl mb-6 text-gray-200">Recent Chats</h1>
       {friendsWithLastMsg.length === 0 ? (
         <p className="text-sm text-zinc-500">Nothing to show here...</p>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-4 overflow-y-auto h-[70vh] px-4 scrollbar-w-2 scrollbar-track-dark scrollbar-thumb-darker scrollbar-thumb-rounded">
           {friendsWithLastMsg.map((friend) => (
             <Link key={friend.id} href={`/dashboard/chat/${chatHrefConstructor(session.user.id, friend.id)}`} className="flex items-center bg-gray-800 p-4 rounded-xl transition hover:bg-gray-700">
               <div className="relative flex-shrink-0 h-12 w-12 mr-4">

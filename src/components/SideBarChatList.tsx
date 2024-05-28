@@ -80,12 +80,12 @@ const SideBarChatList: FC<SideBarChatListProps> = ({ friends, sessionId }) => {
     }, [pathname]);
 
     return (
-        <ul role="list" className="max-h-[25rem] overflow-y-auto -mx-2 space-y-1">
+        <ul role="list" className="p-2 max-h-full scrollbar-w-2 scrollbar-track-dark scrollbar-thumb-darker scrollbar-thumb-rounded scrolling-touch overflow-y-auto rounded-lg bg-black pl-2 pt-2 shadow-xl space-y-1 h-[14.7rem]">
             {friends.sort().map((friend) => {
                 const unseenMessagesCount = unseenMessages.filter((unseenMsg) => unseenMsg.senderId === friend.id).length;
 
                 return (
-                    <li key={friend.id} className="bg-gray-800 shadow-xl rounded-lg hover:rounded-xl">
+                    <li key={friend.id} className="bg-gray-800 shadow-xl rounded-lg hover:rounded-xl w-[100%] -mr-9">
                         <a href={`/dashboard/chat/${chatHrefConstructor(sessionId, friend.id)}`} className="text-gray-200 hover:bg-gray-700 group flex items-center rounded-xl gap-x-3 p-2 text-sm leading-6">
                             <div className="h-[2rem] w-[2rem] relative">
                                 <Image src={friend.image} referrerPolicy="no-referrer" fill alt={friend.name} className="rounded-full" />

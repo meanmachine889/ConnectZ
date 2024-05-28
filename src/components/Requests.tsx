@@ -63,23 +63,25 @@ const Requests: FC<RequestsProps> = ({ incomingFriendRequests, sessionId }) => {
   return (
     <>
       {friendRequests.length === 0 ? (
-        <p className=" text-gray-400">Nothing to show...</p>
+        <p className="text-gray-400">Nothing to show...</p>
       ) : (
         friendRequests.map((r) => (
-          <div key={r.senderId} className="w-fit flex gap-8 bg-gray-800 rounded-xl px-3 py-3 items-center justify-center">
-            <p className="font-medium text-lg text-gray-400">{r.senderEmail}</p>
-            <button
-              className="w-8 h-8 bg-gray-400 shadow-sm hover:bg-indigo-700 flex text-white items-center justify-center transition hover:shadow-md rounded-full"
-              onClick={() => acceptFriend(r.senderId)}
-            >
-              <Check className="font-semibold text-black w-3/4 h-3/4" />
-            </button>
-            <button
-              className="w-8 h-8 bg-red-400 shadow-sm hover:bg-red-700 flex text-white items-center justify-center transition hover:shadow-md rounded-full"
-              onClick={() => rejectFriend(r.senderId)}
-            >
-              <X className="font-semibold text-black w-3/4 h-3/4" />
-            </button>
+          <div key={r.senderId} className="w-full md:w-fit flex gap-4 bg-gray-800 rounded-xl p-4 items-center justify-between md:justify-center">
+            <p className="font-medium text-sm md:text-lg text-gray-400">{r.senderEmail}</p>
+            <div className="flex gap-2">
+              <button
+                className="w-6 h-6 md:w-8 md:h-8 bg-gray-400 shadow-sm hover:bg-indigo-700 flex text-white items-center justify-center transition hover:shadow-md rounded-full"
+                onClick={() => acceptFriend(r.senderId)}
+              >
+                <Check className="w-4 h-4 md:w-3/4 md:h-3/4" />
+              </button>
+              <button
+                className="w-6 h-6 md:w-8 md:h-8 bg-red-400 shadow-sm hover:bg-red-700 flex text-white items-center justify-center transition hover:shadow-md rounded-full"
+                onClick={() => rejectFriend(r.senderId)}
+              >
+                <X className="w-4 h-4 md:w-3/4 md:h-3/4" />
+              </button>
+            </div>
           </div>
         ))
       )}
