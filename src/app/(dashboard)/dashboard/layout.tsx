@@ -12,6 +12,7 @@ import SideBarChatList from "@/components/SideBarChatList";
 import SideBarOption from "@/types/typings";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MobileChatLayout from "@/components/MobileChatLayout";
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 interface LayoutProps {
   children: ReactNode;
@@ -86,7 +87,7 @@ const Layout: FC<LayoutProps> = async ({ children }) => {
                       className="text-gray-200 bg-gray-700 hover:bg-gray-800 p-4 hover:bg-gray-100 group flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold items-center"
                     >
                       <span className="text-gray-400 border-gray-200 group-hover:border-indigo-400 group-hover:text-indigo-400 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[0.625rem] font-md">
-                        <FavoriteIcon className="h-7 w-7" />
+                        <PersonAddAlt1Icon className="h-7 w-7 pl-1" />
                       </span>
                       <span className="truncate text-lg">{option.name}</span>
                     </Link>

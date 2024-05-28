@@ -6,8 +6,8 @@ import { UserId } from "@/types/next-auth";
 import { fetchRedis } from "@/helpers/redis";
 
 function getCredentials(){
-    const clientId = process.env.GOOGLE_CLIENT_ID
-    const clientSecret = process.env.GOOGLE_CLIENT_SECRET
+    const clientId = process.env.GOOGLE_CLIENT_ID;
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
 
     if(!clientId || clientId.length === 0){
         throw new Error('missing client id');
@@ -18,13 +18,12 @@ function getCredentials(){
     }
 
     return {clientId, clientSecret};
-
 }
 
 export const authOptions: NextAuthOptions = {
     adapter: UpstashRedisAdapter(db),
     session: {
-        strategy: 'jwt'                                //used as session tokens
+        strategy: 'jwt' // used as session tokens
     },
     pages: {
         signIn: '/login'
@@ -36,37 +35,37 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async jwt ({token, user}){
-            const dbUserResult = (await fetchRedis('get',`user:${token.id}`)) as string|null
-            if(!dbUserResult){
-                token.id = user!.id
-                return token
+        async jwt({ token, user }) {
+            try {
+                if (user) {
+                    token.id = user.id;
+                } else if (token.id) {
+                    const dbUserResult = (await fetchRedis('get', `user:${token.id}`)) as string | null;
+                    if (dbUserResult) {
+                        const dbUser = JSON.parse(dbUserResult) as User;
+                        token.id = dbUser.id;
+                        token.name = dbUser.name;
+                        token.email = dbUser.email;
+                        token.picture = dbUser.image;
+                    }
+                }
+                return token;
+            } catch (error) {
+                console.error("JWT Callback Error:", error);
+                return token;
             }
-
-            const dbUser = JSON.parse(dbUserResult) as User
-
-            
-            return{
-                id: dbUser.id,
-                name: dbUser.name,
-                email: dbUser.email,
-                picture: dbUser.image
-            }
-        
         },
-        async session({session, token}){
-            if(token){
-                session.user.id = token.id as UserId
-                session.user.email = token.email
-                session.user.name = token.name
-                session.user.image = token.picture
+        async session({ session, token }) {
+            if (token) {
+                session.user.id = token.id as UserId;
+                session.user.email = token.email;
+                session.user.name = token.name;
+                session.user.image = token.picture;
             }
-            
-            return session
+            return session;
         },
-        redirect(){
-            return '/dashboard'
+        async redirect() {
+            return '/dashboard';
         }
-
     }
-}
+};
