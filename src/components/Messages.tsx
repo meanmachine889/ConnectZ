@@ -48,7 +48,7 @@ const Messages: FC<MessageProps> = ({ initialMessages, sessionId, chatId, sessio
   return (
     <div
       id="messages"
-      className="rounded-xl flex bg-gradient-to-r from-gray-900 to-black h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-dark scrollbar-w-2 scrolling-touch"
+      className="z-[-1] rounded-xl flex bg-gradient-to-r from-gray-900 to-black h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-dark scrollbar-w-2 scrolling-touch"
     >
       <div ref={scrollDownRef} />
       {messages.map((message, index) => {
